@@ -16,8 +16,8 @@
 void execute_command(char *command)
 {
 
-	/* TODO: Implement the logic to execute the given command */
-	/* You might need to use fork, exec and wait for system calls */
+	/* TODO: Utilize the logic to execute the given command */
+	/* You might need to utilise fork, exec and wait for system calls */
 
 }
 
@@ -35,7 +35,7 @@ int main(void)
 		printf("simple_shell$ ");
 		fgets(input, MAX_INPUT_SIZE, stdin);
 
-		/* Remove the trailing character of the newline */
+		/* Remove the trailing character of the newline from what exists */
 		input[strcspn(input, "\n")] = '\0';
 
 		if (strcmp(input, "exit") == 0) {
