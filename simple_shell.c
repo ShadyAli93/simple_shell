@@ -1,52 +1,63 @@
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
-#include <unistd.h>
-#include <sys/types.h>
-#define MAX_INPUT_SIZE 1024
+#include "simple_shell.h"
 
 /**
- * execute_command - Execute a command using fork, exec and wait system cal
- * @args : The command to execute
- *
- * Return: None
+ * Shell - executes the command
+ * @run: command to run
+ * Return: 0 on success, -1 if run is exit, 1 on any other error
  */
-void execute_command(char *args)
+int Shell(char **run)
 {
-pid_t pid = fork();
-if (pid < 0)
+pid_t pid;
+int output;
+pid = fork();
+if (pid == -1)
 {
-perror("Fork failed");
+perror("Exit");
+return (1);
 }
 else if (pid == 0)
 {
-if (execvp(args[0], args) == -1)
-perror("Execution failed");
+if (execve(run[0], run, NULL) == -1)
+{
+perror("Exit");
+exit(-1);
 }
-exit(EXIT_FAILURE);
 }
 else
-{
-waitpid(pid, NULL, 0);
+wait(&output);
+return (0);
 }
-}
+
 /**
- * main - Entry point of the simple shell program
- *
- * Return: Always 0
+ * main - main simple shell
+ * @argc: number of arguments
+ * @argv: list of command line arguments
+ * Return: Always 0, -1 on error.
  */
-int main(void)
+int main(int argc, char **argv)
 {
+size_t bufsize = BUFSIZ;
+char *buffer;
+if (argc == 2)
+{
+if (execve(argv[1], argv, NULL) == -1)
+{
+perror("Exit");
+exit(-1);
+}
+return (0);
+}
+buffer = (char *)malloc(bufsize * sizeof(char));
+if (buffer == NULL)
+{
+perror("buffer not found");
+exit(1);
+}
 while (1)
 {
-printf("simple_shell$ ");
-fgets(input, MAX_INPUT_SIZE, stdin);
-input[strcspn(input, "\n")] = '\0';
-if (strcmp(input, "exit") == 0)
-{
-break;
-}
-execute_command(input);
+printf("#Simple_Shell$ ");
+getline(&buffer, &bufsize, stdin);
+buffer[_strlen(buffer) - 1] = '\0';
 }
 return (0);
 }
