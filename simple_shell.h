@@ -1,4 +1,4 @@
-#ifndef SIMPLE 
+#ifndef SIMPLE
 #define SIMPLE
 
 #include <stdio.h>
