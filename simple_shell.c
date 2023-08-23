@@ -51,7 +51,7 @@ return (0);
 buffer = (char *)malloc(bufsize * sizeof(char));
 if (buffer == NULL)
 {
-perror("Unable to allocate buffer");
+perror("buffer is not allocated");
 exit(1);
 }
 while (1)
@@ -59,6 +59,11 @@ while (1)
 printf("#Simple_Shell$ ");
 getline(&buffer, &bufsize, stdin);
 buffer[_strlen(buffer) - 1] = '\0';
+if (feof(stdin))
+{
+printf("\n");
+exit(0);
+}
 }
 return (0);
 }
