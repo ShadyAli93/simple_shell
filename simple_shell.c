@@ -2,10 +2,10 @@
 
 /**
  * Shell - executes the command
- * @run: command to run
- * Return: 0 on success, -1 if run is exit, 1 on any other error
+ * @code: variable
+ * Return: 0 & 1 & -1
  */
-int Shell(char **run)
+int Shell(char **code)
 {
 pid_t pid;
 int output;
@@ -17,7 +17,7 @@ return (1);
 }
 else if (pid == 0)
 {
-if (execve(run[0], run, NULL) == -1)
+if (execve(code[0], code, NULL) == -1)
 {
 perror("Exit");
 exit(-1);
@@ -30,19 +30,20 @@ return (0);
 
 /**
  * main - main simple shell
- * @argc: number of arguments
- * @argv: list of command line arguments
- * Return: Always 0, -1 on error.
+ * @argc: variable
+ * @argv: variable
+ * Return: 0 & -1
  */
 int main(int argc, char **argv)
 {
 size_t bufsize = BUFSIZ;
 char *buffer;
+
 if (argc == 2)
 {
 if (execve(argv[1], argv, NULL) == -1)
 {
-perror("Exit");
+perror("Error");
 exit(-1);
 }
 return (0);
@@ -50,7 +51,7 @@ return (0);
 buffer = (char *)malloc(bufsize * sizeof(char));
 if (buffer == NULL)
 {
-perror("buffer not found");
+perror("Unable to allocate buffer");
 exit(1);
 }
 while (1)
