@@ -1,30 +1,43 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
+#include <unistd.h>
+#include <sys/types.h>
 
-int
-main(int argc, char *argv[])
+
+#define MAX_INPUT_SIZE 1024
+
+/**
+ * execute command - Execute a command using fork, exec and wait system cal
+ * @command : The command to execute
+ *
+ * Return: None
+ */
+void execute_command(char *command)
 {
-FILE *stream;
-char *line = NULL;
-size_t len = 0;
-ssize_t nread;
-if (argc != 2)
-{
-fprintf(stderr, "Usage: %s <file>\n", argv[0]);
-exit(EXIT_FAILURE);
+
+        /* TODO: Implement the logic to execute the given command */
+        /* You might need to use fork, exec and wait for system calls */
+
 }
-stream = fopen(argv[1], "r");
-if (stream == NULL)
+/**
+ * main - Entry point of the simple shell program
+ *
+ * Return: Always 0
+ */
+int main(void)
 {
-perror("fopen");
-exit(EXIT_FAILURE);
-}
-while ((nread = getline(&line, &len, stream)) != -1)
+char input[MAX_INPUT_SIZE];
+while (1)
 {
-printf("Retrieved line of length %zu:\n", nread);
-fwrite(line, nread, 1, stdout);
+printf("simple_shell$ ");
+fgets(input, MAX_INPUT_SIZE, stdin);
+input[strcspn(input, "\n")] = '\0';
+if (strcmp(input, "exit") == 0) 
+{
+break;
 }
-free(line);
-fclose(stream);
-exit(EXIT_SUCCESS);
+execute_command (input);
+}
+return (0);
 }
