@@ -10,6 +10,7 @@
 #include <string.h>
 
 int _strlen(char *str);
-
+char **stoken(char *str);
+unsigned int nspaces(char *s);
 
 #endif

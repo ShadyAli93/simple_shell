@@ -37,7 +37,8 @@ return (0);
 int main(int argc, char **argv)
 {
 size_t bufsize = BUFSIZ;
-char *buffer;
+char *buffer, **tokens;
+int response;
 
 if (argc == 2)
 {
@@ -54,16 +55,17 @@ if (buffer == NULL)
 perror("buffer is not allocated");
 exit(1);
 }
-while (1)
-{
+do {
 printf("#Simple_Shell$ ");
 getline(&buffer, &bufsize, stdin);
 buffer[_strlen(buffer) - 1] = '\0';
+tokens = stoken(buffer);
+response = Shell(tokens);
 if (feof(stdin))
 {
 printf("\n");
 exit(0);
 }
-}
+} while (response != -1);
 return (0);
 }
