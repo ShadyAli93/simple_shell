@@ -18,8 +18,9 @@ printf("Simple_shell$ ");
 }
 
 /**
- * main - main
- * Return : 0
+ * main - Entry point for the simple shell program.
+ *
+ * Return: Always 0.
  */
 int main(void)
 {
