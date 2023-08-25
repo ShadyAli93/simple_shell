@@ -56,7 +56,7 @@ perror("buffer is not allocated");
 exit(1);
 }
 do {
-_puts("#Simple_Shell$ ");
+printf("#Simple_Shell$ ");
 getline(&buffer, &bufsize, stdin);
 buffer[_strlen(buffer) - 1] = '\0';
 tokens = stoken(buffer);
