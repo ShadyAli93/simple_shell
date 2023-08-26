@@ -10,7 +10,7 @@
 #include <sys/stat.h>
 #include <sys/types.h>
 
-
+extern char **environ;
 void print_environment(void);
 int _strcmp(char *s1, char *s2);
 char **parse_input(char *buffer);
